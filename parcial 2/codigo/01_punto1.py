@@ -23,6 +23,7 @@ plt.savefig("../results/punto1_histograma_gris.png", bbox_inches="tight")
 
 gray_eq = cv2.equalizeHist(gray)
 
+plt.figure()
 plt.imshow(gray_eq, cmap="gray")
 plt.axis("off")
 plt.savefig("../results/punto1_ecualizada.png", bbox_inches="tight", pad_inches=0)

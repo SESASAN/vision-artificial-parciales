@@ -24,6 +24,7 @@ gray = np.array(Image.fromarray(img).convert("L"))
 
 gray_spec = match_histograms(gray, ref).astype(np.uint8)
 
+plt.figure()
 plt.imshow(gray_spec, cmap="gray")
 plt.axis("off")
 plt.savefig("../results/punto2_especificacion.png", bbox_inches="tight", pad_inches=0)
