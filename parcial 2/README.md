@@ -1,63 +1,87 @@
 # Momento Evaluativo 2 — Visión Artificial
 
-Taller de histogramas, filtrado espacial y detección/realce de bordes,
-graded en dos componentes: "Hacer" (40%, construcción de los algoritmos) y
-"Analizar" (60%, sustentación en video).
+Solución de los 5 puntos del taller de histogramas, filtrado espacial y
+detección/realce de bordes (numpy, OpenCV y scikit-image).
 
-## Puntos del taller
+## Requisitos
 
-1. **(1.2)** Histograma y ecualización de histograma sobre la imagen propia
-   en escala de grises: histograma original, ecualización, histograma
-   ecualizado, nivel de intensidad más probable (original y ecualizada), y
-   probabilidad de intensidad=176 en la ecualizada.
-2. **(0.6)** Especificación de histograma usando `images/Referencia.tif`
-   (500x500, escala de grises) como imagen objetivo.
-3. **(2.0)** Ruido (uniforme, gaussiano, sal y pimienta) sobre la imagen
-   original en gris, y 9 filtros por cada imagen con ruido (uniforme 3x3/5x5/7x7,
-   gaussiano σ=0.5 y σ=1.9 en 3x3/5x5/7x7) — 27 imágenes filtradas en total.
-   Evaluación con SSIM contra la imagen original sin ruido para identificar
-   el mejor filtro por cada tipo de ruido.
-4. **(0.6)** Detección de bordes con Sobel (horizontal/vertical, por
-   convolución) y Laplaciano de 8 vecinos; magnitud del gradiente por suma de
-   valores absolutos.
-5. **(0.6)** Realce de bordes con Laplaciano de 4 y de 8 vecinos (distinto a
-   detección de bordes del punto 4).
+- Python 3
+- Las dependencias listadas en `../requirements.txt` (numpy, opencv-contrib-python,
+  scikit-image, matplotlib, pillow, jupyter) — es el mismo entorno compartido
+  con `parcial 1`, ver el README en la raíz del repositorio.
 
-## Estructura
+## Instalación
 
-- `images/` — `Referencia.tif` (imagen objetivo del punto 2) y la imagen
-  propia que se genere para el taller (guardarla como `mi_imagen.png`, ver
-  `00_preparacion`).
-- `notebooks/` — un notebook por punto (`00_preparacion.ipynb` +
-  `0X_puntoX.ipynb`), con el enunciado en celdas de markdown y el código
-  pendiente marcado con `# TODO`.
-- `codigo/` — el mismo código exportado a scripts `.py` planos, uno por
-  punto (sin las celdas markdown).
-- `results/` — imágenes resultado generadas al resolver cada punto.
-
-## Entorno
-
-Ver el README en la raíz del repositorio para crear y activar el entorno
-virtual compartido (`../requirements.txt`).
-
-## Ejecutar
-
-Con el entorno activado:
+Desde la raíz del repositorio (un nivel arriba de esta carpeta), crear el
+entorno virtual:
 
 ```bash
-jupyter notebook "parcial 2/notebooks/"
+python3 -m venv .venv
 ```
 
-o, desde `parcial 2/codigo/`, cada script por separado (`python 0X_puntoX.py`),
-en orden, empezando por `00_preparacion.py`.
+Activarlo:
 
-## Contenido de cada notebook/script
+```bash
+# Linux / macOS
+source .venv/bin/activate
+```
 
-| Archivo | Punto | Qué contiene |
+```bat
+:: Windows (cmd)
+.venv\Scripts\activate.bat
+```
+
+```powershell
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+```
+
+Con el entorno activado, instalar las dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Ejecutar solo desde `codigo/`
+
+Cada punto tiene su propio script `.py` en `codigo/`, en el mismo orden que
+el enunciado. Los scripts usan rutas relativas (`../images`, `../results`),
+así que hay que ejecutarlos **desde dentro de `parcial 2/codigo/`**, con el
+entorno virtual activado:
+
+```bash
+cd "parcial 2/codigo"
+python 00_preparacion.py
+python 01_punto1.py
+python 02_punto2.py
+python 03_punto3.py
+python 04_punto4.py
+python 05_punto5.py
+```
+
+`00_preparacion.py` debe correrse primero: carga la imagen generada con IA
+(`images/mi_imagen.png`), que usan todos los demás puntos.
+
+Cada script guarda sus imágenes resultado en `../results/` (es decir,
+`results/` en esta misma carpeta del parcial).
+
+## Contenido de cada script
+
+| Script | Punto | Qué hace |
 |---|---|---|
-| `00_preparacion` | — | Carga de la imagen generada con IA |
-| `01_punto1` | 1 | Histograma, ecualización, niveles más probables |
-| `02_punto2` | 2 | Especificación de histograma contra `Referencia.tif` |
-| `03_punto3` | 3 | Ruido (uniforme/gaussiano/sal y pimienta) + 9 filtros + tabla SSIM |
-| `04_punto4` | 4 | Detección de bordes: Sobel (kernels dados) y Laplaciano de 8 vecinos |
-| `05_punto5` | 5 | Realce de bordes: Laplaciano de 4 y 8 vecinos |
+| `00_preparacion.py` | — | Carga la imagen generada con IA |
+| `01_punto1.py` | 1 | Histograma, ecualización, niveles de intensidad más probables |
+| `02_punto2.py` | 2 | Especificación de histograma contra `Referencia.tif` |
+| `03_punto3.py` | 3 | Ruido (uniforme/gaussiano/sal y pimienta) + 9 filtros + tabla SSIM |
+| `04_punto4.py` | 4 | Detección de bordes: Sobel (kernels dados) y Laplaciano de 8 vecinos |
+| `05_punto5.py` | 5 | Realce de bordes: Laplaciano de 4 y 8 vecinos |
+
+## Notebooks
+
+El mismo código también está disponible como notebooks de Jupyter en
+`notebooks/`, con el enunciado de cada punto en celdas de markdown. Para
+usarlos:
+
+```bash
+jupyter notebook notebooks/
+```
