@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
 
-import sys
-sys.path.append("..")
-
 sobel_h = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]], dtype=np.float64)
 sobel_v = np.array([[1, 0, -1], [2, 0, -2], [1, 0, -1]], dtype=np.float64)
 laplaciano_8 = np.array([[1, 1, 1], [1, -8, 1], [1, 1, 1]], dtype=np.float64)

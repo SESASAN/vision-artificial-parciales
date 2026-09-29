@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
 
-import sys
-sys.path.append("..")
-
 def convolucion(im, kernel):
     kernel_flip = kernel[::-1, ::-1]
     return cv2.filter2D(im, -1, kernel_flip, borderType=cv2.BORDER_REPLICATE)

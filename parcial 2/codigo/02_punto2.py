@@ -4,9 +4,6 @@ from PIL import Image
 import cv2
 from skimage.exposure import match_histograms
 
-import sys
-sys.path.append("..")
-
 ref = np.array(Image.open("../images/Referencia.tif").convert("L"))
 plt.imshow(ref, cmap="gray")
 plt.axis("off")
