@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
+from skimage.metrics import structural_similarity as ssim
+from skimage.color import rgb2ycbcr, ycbcr2rgb, rgb2yiq, yiq2rgb
 
 import sys
 sys.path.append("..")
@@ -25,4 +27,17 @@ plt.figure()
 plt.imshow(img)
 plt.axis("off")
 
-# TODO: ida y vuelta por cada espacio y SSIM contra img
+def vuelta_skimage(convertir):
+    return lambda x: np.clip(np.round(convertir(x) * 255), 0, 255).astype(np.uint8)
+
+conversiones = {
+    "CMY": (rgb_to_cmy, cmy_to_rgb),
+    "CMYK": (rgb_to_cmyk, cmyk_to_rgb),
+    "HSI": (rgb_to_hsi, hsi_to_rgb),
+    "YCbCr": (rgb2ycbcr, vuelta_skimage(ycbcr2rgb)),
+    "YIQ": (rgb2yiq, vuelta_skimage(yiq2rgb)),
+}
+
+for nombre, (ida, vuelta) in conversiones.items():
+    reconstruida = vuelta(ida(img))
+    print(f"{nombre}: SSIM = {ssim(reconstruida, img, channel_axis=2, data_range=255):.4f}")

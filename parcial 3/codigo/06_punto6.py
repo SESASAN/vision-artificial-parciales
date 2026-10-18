@@ -14,13 +14,22 @@ plt.figure()
 plt.imshow(img)
 plt.axis("off")
 
-# TODO
-hsi = None
+hsi = rgb_to_hsi(img)
 
-# TODO
-hsi_eq = None
+intensidad = np.round(hsi[..., 2] * 255).astype(np.uint8)
+intensidad_eq = cv2.equalizeHist(intensidad)
 
-# TODO
-resultado = None
+hsi_eq = hsi.copy()
+hsi_eq[..., 2] = intensidad_eq / 255.0
+resultado = hsi_to_rgb(hsi_eq)
 
-# TODO: mostrar img y resultado lado a lado
+Image.fromarray(resultado).save("../results/punto6_transformada.png")
+
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.imshow(img)
+plt.axis("off")
+plt.subplot(1, 2, 2)
+plt.imshow(resultado)
+plt.axis("off")
+plt.savefig("../results/punto6_comparacion.png", bbox_inches="tight", pad_inches=0)

@@ -14,13 +14,24 @@ plt.figure()
 plt.imshow(img)
 plt.axis("off")
 
-# TODO
-cmy = None
+cmy = rgb_to_cmy(img)
 
-# TODO
-y_mod = None
+amarillo = np.round(cmy[..., 2] * 255).astype(np.uint8)
 
-# TODO
-resultado = None
+amarillo_mod = np.zeros_like(amarillo)
+cv2.intensity_transform.contrastStretching(amarillo, amarillo_mod, 80, 60, 210, 120)
 
-# TODO: mostrar img y resultado lado a lado
+cmy_mod = cmy.copy()
+cmy_mod[..., 2] = amarillo_mod / 255.0
+resultado = cmy_to_rgb(cmy_mod)
+
+Image.fromarray(resultado).save("../results/punto5_transformada.png")
+
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.imshow(img)
+plt.axis("off")
+plt.subplot(1, 2, 2)
+plt.imshow(resultado)
+plt.axis("off")
+plt.savefig("../results/punto5_comparacion.png", bbox_inches="tight", pad_inches=0)

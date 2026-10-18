@@ -98,3 +98,17 @@ usarlos:
 ```bash
 jupyter notebook notebooks/
 ```
+
+## Notas
+
+- **Parula**: matplotlib no la trae. `colorspaces.py` incluye su tabla de 64
+  colores (copiada de `BIDS/colormap`; los derechos son de The MathWorks). El
+  negativo del mapa de color se calcula como `1 - parula`. Con 64 colores, el
+  nivel 170 cae en el índice 42 y le corresponde el RGB (90, 65, 148). En
+  MATLAB R2019b o posterior parula tiene 256 colores por defecto, y ese valor
+  podría variar levemente.
+- **Punto 6**: se ecualiza solo el componente de Intensidad; ecualizar Tono o
+  Saturación alteraría el color.
+- **Punto 8**: Magenta y Amarillo son idénticos en las dos imágenes; el Cian de
+  la desbalanceada es el de la objetivo con una gamma γ = 2.5. Se corrige
+  aplicando γ = 1 / 2.5 = 0.4 al Cian en CMY: el SSIM pasa de 0.9336 a 0.9940.
